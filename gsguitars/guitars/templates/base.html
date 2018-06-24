@@ -1,0 +1,165 @@
+{% load static %}
+
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en" dir="ltr"> <![endif]-->
+<!--[if IE 7]> <html class="no-js lt-ie9 lt-ie8" lang="en" dir="ltr"> <![endif]-->
+<!--[if IE 8]> <html class="no-js lt-ie9" lang="en" dir="ltr"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en" dir="ltr"><!--<![endif]-->
+
+<head>
+    <title>Groff & Sons Guitars</title>
+
+    <!-- Meta Data ================ -->
+    <meta charset="UTF-8"/>
+    <meta name="description" content="Fill this in with your information"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <!-- CSS ================ -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css"/>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css"/>
+    <link rel="stylesheet" href="{% static 'css/header-1.css' %}" type="text/css"/>
+
+    <!-- lemmon slider variable width slider for images -->
+    <link rel="stylesheet" href="{% static 'css/lemmon-slider.css' %}" type="text/css" media="screen"/>
+    <link rel="shortcut icon" href="/static/images/favicon.png"/>
+    <!-- SCRIPTS ============================================== -->
+    <!--	NOTE:: jquery 1.9.1 supports older ie, 2.0 does not, but 1.9.1 does not work well on ie8 and 
+            lower so version 1.7.2 is called for older versions of ie 
+            :: calling jQuery in the head for ajax work if necessary.
+            -->
+    <!--[if gt IE 8]><!-->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="{% static 'js/jquery-1.9.1.min.js' %}"><\/script>')</script>
+    <!--<![endif]-->
+    <!--[if lte IE 8]>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <![endif]-->
+
+    <!-- Add to Head after Style sheet http://modernizr.com/docs/#installing  ================ -->
+    <script src="{% static 'js/modernizr.js' %}"></script>
+    <!-- js multiple backgrounds svg background size -->
+
+</head>
+<body class="index">
+
+<!-- begin accesibility skip to nav skip content -->
+<ul class="visuallyhidden" id="top">
+    <li><a href="#nav" title="Skip to navigation" accesskey="n">Skip to navigation</a></li>
+    <li><a href="#page" title="Skip to content" accesskey="c">Skip to content</a></li>
+</ul>
+<!-- end /.visuallyhidden accesibility-->
+
+<!-- mobile navigation trigger-->
+<h5 class="mobile_nav"><a href="javascript:void(0)">&nbsp;<span></span></a></h5>
+<!--end mobile navigation trigger-->
+
+<section class="container preheader">
+    <div class="phone"><a href="tel:{{ contact_info.telephone }}" class="tele">{{ contact_info.telephone }}</a></div>
+    <ul class="social">
+        <li><a class="socicon small youtube" href="http://www.youtube.com/user/whitneystrayhorn57"
+               data-placement="bottom" title="Follow us on YouTube"></a></li>
+    </ul>
+</section>
+
+<!-- begin .header-->
+<header class="header clearfix"><img src="{% static 'images/logo.png' %}" class="print logo" alt="g&s guitars"/>
+
+    <div class="container">
+        <div class="mobile-menu-holder"><!--clone menu here for mobile--></div>
+        <!-- begin #main_menu -->
+        <nav id="main_menu">
+            <ul class="primary_menu">
+                {% url 'home' as home_url %}
+                <li {% if request.path == home_url %}class="active"{% endif %}"><a href="/">Home</a></li>
+                <li class="{% if guitar %}active{% endif %}"><a href="/guitars"">Guitars<i></i></a>
+                </li>
+                <li class="{% block contact_item %}{% endblock contact_item %}"><a href="/contact-us">Contact</a></li>
+            </ul>
+        </nav>
+        <!-- close / #main_menu -->
+
+        <!-- begin #logo -->
+        <div id="logo"><a href="/"><img alt="" src="{% static 'images/trans.gif' %}"/><em>{{ self.title }}</em><!--effing ie7 support--></a></div>
+        <!-- end #logo -->
+
+    </div>
+    <!-- close / .container-->
+</header>
+<!-- close /.header -->
+
+<!-- begin #page - the container for everything but header -->
+<div id="page">
+    {% block title %}
+    <div class="hero-unit">
+        <div class="container">
+            <h1>{{ self.title }}</h1>
+        </div>
+        <!--close container-->
+    </div>
+    {% endblock title %}
+
+    <!--notice how sliders are outside the this main content div-->
+    <div class="container clearfix" id="main-content">
+        {% block content %}
+
+        {% endblock content %}
+    </div>
+    <!--close .container role="main-content" -->
+    <!--begin footer -->
+    <footer id="footer" class="clearfix">
+        <div class="container"><!--footer container-->
+
+
+            <div class="row-fluid">
+                <div class="span12">
+                    <section>
+                        <h4>Contact Us</h4>
+                        <p>Groff & Sons Guitars<br>
+                            {{ contact_info.address_1 }}<br>
+                            {{ contact_info.city }} {{ contact_info.post_code }}<br>
+                            <strong>phone:</strong> <a href="tel:8085551234" class="tele">{{ contact_info.telephone }}</a><br>
+                            <strong>email:</strong> <a href="mailto:{{ contact_info.email }}">{{ contact_info.email }}</a></p>
+
+                    </section>
+                </div>
+
+            </div>
+        </div>
+
+        <section class="footerCredits">
+            <div class="container">
+                <ul class="clearfix">
+                    <li>© 2014 Groff & Sons Guitars. All rights reserved.</li>
+                </ul>
+            </div>
+        </section>
+    </footer>
+
+    <span class="backToTop"><a href="#top">back to top</a></span></div>
+
+<!-- JS JQuery ================ -->
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/isotope_custom.min.js' %}"></script><!--isotope and initializations-->
+
+<script src="{% static 'js/lemmon-slider.min.js' %}"></script>
+<!-- lemmon slider js -->
+
+<!--initialize scripts / custom scripts all pages-->
+<script src="{% static 'js/custom.js' %}"></script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-48462033-1']);
+  _gaq.push(['_setDomainName', 'gsguitars.com']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static wagtailcore_tags wagtailimages_tags wagtailembeds_tags %}
+
+{% block content %}
+    <div class="row-fluid portfolio-detail">
+        <div class="span7 offset1 image-slider" role="image-slider">
+            {% if self.carousel_items.all.count > 0 %}
+                {% if self.carousel_items.all.count > 1 %}
+                    <div id="carousel" class="flexslider">
+                        <ul class="slides">
+                            {% for image in self.carousel_items.all %}
+                                {% image image.image max-630x472 as imagedata %}
+                                <li style="background-image: url({{ imagedata.url }});">
+                                    <img src="{% static 'images/trans.gif' %}" alt="{{ image.title }}">
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+
+                <div id="slider" class="flexslider">
+                    <ul class="slides">
+                        {% for image in self.carousel_items.all %}
+                            <li>
+                                {% image image.image max-913x685 as imagedata %}
+                                <a class="zoom-image fancyme" data-fancybox-group="portfolio"  href="{{ imagedata.url }}" title="{{ image.caption }}">
+                                    View Larger Image
+                                </a>
+                             <img src="{{ imagedata.url }}" width="{{ imagedata.width }}" height="{{ imagedata.height }}" alt="{{ imagedata.alt }}" title="{{ image.caption }}" />
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+            </div>
+
+        <section class="span4 project-description" role="project-description">
+            <p>{{ self.body|richtext }}</p>
+        </section>
+    </div>
+{% endblock content %}

@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static wagtailcore_tags wagtailimages_tags wagtailembeds_tags %}
+
+{% block content %}
+    <!--begin slider -->
+    <div class="lemmon-wrap clearfix">
+        <div id="lemmon-slider" class="lemmon-slider">
+            <ul>
+            {% for carousel_item in self.carousel_items.all %}
+                <li>
+                    <a href="{{ carousel_item.link }}">
+                        {% image carousel_item.image max-550x412 as carouselimagedata %}
+                        <img src="{{ carouselimagedata.url }}" width="{{ carouselimagedata.width }}" height="{{ carouselimagedata.height }}" alt="{{ carouselimagedata.alt }}" title="{{ carousel_item.caption }}" />
+                        <div class="summary">
+                            <h3>{{ carousel_item.title }}</h3>
+                            <p>{{ carousel_item.caption }}</p>
+                        </div>
+                    </a>
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
+        <div class="controls"><a href="#" class="prev-page">Prev Page</a> <a href="#" class="next-page">Next Page</a>
+        </div>
+        <!-- / .controls -->
+    </div>
+    <!-- / end slider -->
+    <h3 class="short_headline"><span>About Us</span></h3>
+
+    <p>{{ self.body|richtext }}</p>
+    <!-- begin equalHeights columns 3 -->
+    <div class="row-fluid equalHero equalHeights">
+
+    </div>
+    <!-- close #equalHeights .featured 3 columns -->
+{% endblock %}

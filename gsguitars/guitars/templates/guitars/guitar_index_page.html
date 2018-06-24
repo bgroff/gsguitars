@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static wagtailcore_tags wagtailimages_tags wagtailembeds_tags %}
+
+{% block content %}
+
+<!--notice how sliders and are outside the this main content div-->
+<div class="container clearfix" id="main-content">
+    <!--<div class="pagination pagination-right no-margin pagination-mini">-->
+        <!--<ul>-->
+            <!--<li><a href="#">1</a></li>-->
+            <!--<li><a href="#">2</a></li>-->
+            <!--<li class="active"><span>3</span></li>-->
+            <!--<li><a href="#">4</a></li>-->
+            <!--<li><a href="#">Next</a></li>-->
+        <!--</ul>-->
+    <!--</div>-->
+    <div class="row-fluid">
+        {{ self.intro|richtext }}
+
+        <!--&lt;!&ndash;trigger the filter at mobile sizes&ndash;&gt;-->
+        <!--<div class="mobile-filter-trigger">Filter <i class="icon-plus"></i></div>-->
+        <!--<div class="filter-clone"></div>-->
+
+        <div class="filter-box clearfix">
+            <ul class='sort'>
+                <li><a class="active" href="#" data-filter="*">All</a></li>
+                {% for tag in self.tags %}
+                    <li><a href="#" data-filter=".{{ tag.name }}">{{ tag.name }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+
+
+        <ul class="gallery four_col clearfix">
+            {% for guitar in self.guitars %}
+                <!-- three_col four_col two_col -->
+                <li class="{% for tag in guitar.get_tags %}{{ tag }} {% endfor %}">
+                    <a class="hover" href="{{ guitar.full_url }}">
+                        {% with image=guitar.carousel_items.first %}
+                        {% if image %}
+                            {% image image.image max-227x227 as imagedata %}
+                             <img src="{{ imagedata.url }}" width="{{ imagedata.width }}" height="{{ imagedata.height }}" alt="{{ imagedata.alt }}" title="{{ image.caption }}" />
+                            {% endif %}
+                        {% endwith %}
+                        <span class="plus"></span>
+                    </a>
+
+                    <div class="entry-summary">
+                        <h4><a href="{{ guitar.full_url }}">{{ guitar.title }}</a></h4>
+
+                        <p>{{ guitar.body|richtext }}</p>
+
+                        <div class="categories">MSRP: ${{ guitar.msrp }}</div>
+                    <!--close entry-summary-->
+                </li>
+            {% endfor %}
+        </ul>
+        <!--<div class="pagination pagination-centered no-margin pagination-footer pagination-mini">-->
+            <!--<ul>-->
+                <!--<li><a href="#">1</a></li>-->
+                <!--<li><a href="#">2</a></li>-->
+                <!--<li class="active"><span>3</span></li>-->
+                <!--<li><a href="#">4</a></li>-->
+                <!--<li><a href="#">Next</a></li>-->
+            <!--</ul>-->
+        <!--</div>-->
+    </div>
+    <!--close row-fluid-->
+    </div>
+    {% endblock %}

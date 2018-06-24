@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+
+{% block content %}
+    <div class="row-fluid reverse-order contact-page">
+        <p class="clearfix">{{ self.body|richtext }}</p>
+        <div class="span5">
+            <!--close input-append-->
+            <h3 class="short_headline margin-top"><span>Follow Us</span></h3>
+            <ul class="social">
+                <li><a class="socicon youtube" href="http://www.youtube.com/user/whitneystrayhorn57" title="Youtube"></a></li>
+            </ul>
+        </div>
+        <!--close span5 -->
+
+        <div class="span7">
+            <h3 class="short_headline margin-top"><span>Get in contact</span></h3>
+                {{ contact_info.address_1 }}<br/>
+                {{ contact_info.city }} {{ contact_info.postal_code }}<br/>
+                <strong>phone:</strong> <a href="tel:{{ contact_info.telephone }}" class="tele">{{ contact_info.telephone }}</a><br/>
+                <strong>email:</strong> <a href="mailto:{{ contact_info.email }}">{{ contact_info.email }}</a></p>
+        </div>
+        <!--close span7 -->
+    </div>
+{% endblock %}
