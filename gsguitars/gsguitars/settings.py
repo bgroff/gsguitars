@@ -97,10 +97,21 @@ WSGI_APPLICATION = 'gsguitars.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
+
+def get_env_variable(variable):
+    try:
+        return os.environ[variable]
+    except KeyError:
+        raise ImproperlyConfigured("The environment variable {0} is not set.".format(variable))
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': get_env_variable('GSGUITARS_DATABASE_NAME'),
+        'USER': get_env_variable('GSGUITARS_DATABASE_USER'),
+        'PASSWORD': get_env_variable('GSGUITARS_DATABASE_PASSWORD'),
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
