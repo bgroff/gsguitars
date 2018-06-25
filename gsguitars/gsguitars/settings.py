@@ -85,6 +85,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'guitars.context_processors.guitars',
             ],
         },
     },
@@ -153,3 +154,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
+WAGTAIL_SITE_NAME = 'G & S Guitars'
+MEDIA_ROOT = '/srv/gsguitars/gsguitars/gsguitars/media/'
