@@ -25,7 +25,7 @@ SECRET_KEY = 'x2wchg4jebvemd1w-2%p#3$$f6@q2c8mncyvdc@1vem&&r562@'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['gsguitars.com']
 
 
 # Application definition
